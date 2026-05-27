@@ -14,7 +14,7 @@ export default async function handler(request: Request) {
   }
 
   try {
-    const { action, payload } = await request.json();
+    const { action, payload } = await request.json() as any;
     
     // Resolve the API key: either a client-supplied override or the secure server-side env variable
     const clientKey = request.headers.get('x-api-key') || '';
