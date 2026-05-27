@@ -4,6 +4,11 @@ export const config = {
 
 const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent';
 
+interface RequestBody {
+  action: string;
+  payload: any;
+}
+
 export default async function handler(request: Request) {
   // Only allow POST requests
   if (request.method !== 'POST') {
@@ -14,7 +19,7 @@ export default async function handler(request: Request) {
   }
 
   try {
-    const { action, payload } = await request.json() as any;
+    const { action, payload } = await request.json() as RequestBody;
     
     // Resolve the API key: either a client-supplied override or the secure server-side env variable
     const clientKey = request.headers.get('x-api-key') || '';
