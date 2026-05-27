@@ -4,11 +4,7 @@ import { ConceptTracker } from './components/ConceptTracker';
 import { WorkspaceScribble } from './components/WorkspaceScribble';
 import { AICoachPanel } from './components/AICoachPanel';
 import { MathText } from './components/MathText';
-import { 
-  PRESET_SCENARIOS, 
-  generateScenarioFromTopic, 
-  generateLocalSocraticResponse 
-} from './services/localCoachService';
+import { PRESET_SCENARIOS } from './services/localCoachService';
 import { 
   generateScenarioWithAI, 
   getGeminiSocraticResponse 
@@ -37,11 +33,6 @@ export default function App() {
   const [apiKey, setApiKey] = useState<string>(() => {
     return localStorage.getItem('mathscape_gemini_key') || '';
   });
-  const [isTrueAI, setIsTrueAI] = useState<boolean>(() => {
-    const saved = localStorage.getItem('mathscape_true_ai');
-    // Default to true (using backend proxy key) if no preference is explicitly stored as false
-    return saved !== 'false';
-  });
 
   // UI state controllers
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -67,11 +58,9 @@ export default function App() {
   }, [notes]);
 
   // Handle local storage key syncing
-  const handleSaveApiKey = (key: string, enableTrueAI: boolean) => {
+  const handleSaveApiKey = (key: string) => {
     localStorage.setItem('mathscape_gemini_key', key);
-    localStorage.setItem('mathscape_true_ai', enableTrueAI ? 'true' : 'false');
     setApiKey(key);
-    setIsTrueAI(enableTrueAI && !!key);
     setIsSettingsOpen(false);
   };
 
@@ -143,21 +132,12 @@ To kick off our mathematical journey: **In your own words, what do you think is 
     
     setIsGeneratingScenario(true);
     try {
-      let scenario: Scenario;
-      
-      if (isTrueAI && apiKey) {
-        scenario = await generateScenarioWithAI(customTopicInput.trim(), apiKey);
-      } else {
-        scenario = generateScenarioFromTopic(customTopicInput.trim());
-      }
-      
+      const scenario = await generateScenarioWithAI(customTopicInput.trim(), apiKey);
       resetScenarioSession(scenario);
       setCustomTopicInput('');
-    } catch (err) {
-      alert("Failed to generate AI scenario. Starting a procedurally generated local challenge instead!");
-      const scenario = generateScenarioFromTopic(customTopicInput.trim());
-      resetScenarioSession(scenario);
-      setCustomTopicInput('');
+    } catch (err: any) {
+      const errMsg = err?.message || String(err);
+      alert(`Failed to generate AI scenario: ${errMsg}`);
     } finally {
       setIsGeneratingScenario(false);
     }
@@ -182,31 +162,18 @@ To kick off our mathematical journey: **In your own words, what do you think is 
     setIsAITyping(true);
 
     try {
-      let aiText = "";
-      let unlockedMilestone: MilestoneType | undefined = undefined;
-
       const activeMilestoneTypes = milestones
         .filter(m => m.isCompleted)
         .map(m => m.id);
 
-      if (isTrueAI && apiKey) {
-        const result = await getGeminiSocraticResponse(
-          updatedMessages,
-          activeScenario,
-          activeMilestoneTypes,
-          apiKey
-        );
-        aiText = result.text;
-        unlockedMilestone = result.unlockedMilestone;
-      } else {
-        const result = generateLocalSocraticResponse(
-          updatedMessages,
-          activeScenario,
-          activeMilestoneTypes
-        );
-        aiText = result.response.text;
-        unlockedMilestone = result.unlockedMilestone;
-      }
+      const result = await getGeminiSocraticResponse(
+        updatedMessages,
+        activeScenario,
+        activeMilestoneTypes,
+        apiKey
+      );
+      const aiText = result.text;
+      const unlockedMilestone = result.unlockedMilestone;
 
       setTimeout(() => {
         const aiMsg: Message = {
@@ -214,7 +181,7 @@ To kick off our mathematical journey: **In your own words, what do you think is 
           sender: 'ai',
           text: aiText,
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-          chips: isTrueAI ? ["Give me a hint", "Am I on track?", "Try next concept"] : generateLocalSocraticResponse(updatedMessages, activeScenario, activeMilestoneTypes).response.chips
+          chips: ["Give me a hint", "Am I on track?", "Try next concept"]
         };
 
         setMessages(prev => [...prev, aiMsg]);
@@ -229,14 +196,15 @@ To kick off our mathematical journey: **In your own words, what do you think is 
         }
       }, 900);
 
-    } catch (error) {
+    } catch (error: any) {
       setIsAITyping(false);
+      const errMsg = error?.message || String(error);
       const errorMsg: Message = {
         id: `ai-err-${Date.now()}`,
         sender: 'ai',
-        text: `⚠️ **Oops! My Socratic transmission encountered a connection error.** Please double check your Gemini API key in settings or continue in offline Socratic mode!`,
+        text: `⚠️ **Socratic transmission encountered an error:**\n\n\`\`\`\n${errMsg}\n\`\`\`\nPlease check your Gemini API key configuration or try again!`,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        chips: ["Toggle offline mode", "Explain what happened"]
+        chips: ["Try again", "Explain what happened"]
       };
       setMessages(prev => [...prev, errorMsg]);
     }
@@ -312,10 +280,10 @@ How does this mathematical scaffold change your approach?`,
           {/* Active AI Status HUD */}
           <span 
             onClick={() => setIsSettingsOpen(true)}
-            className={`status-badge ${isTrueAI ? 'active' : ''}`}
+            className="status-badge active"
           >
             <span className="status-dot" />
-            {isTrueAI ? 'GEMINI ACTIVE' : 'LOCAL ENGINE'}
+            GEMINI ACTIVE
           </span>
 
           {/* Settings Button */}
@@ -504,22 +472,6 @@ How does this mathematical scaffold change your approach?`,
                 />
               </div>
 
-              <div className="checkbox-group">
-                <input 
-                  type="checkbox" 
-                  id="enable-true-ai" 
-                  defaultChecked={isTrueAI}
-                  className="checkbox-input"
-                />
-                <div>
-                  <label htmlFor="enable-true-ai" className="checkbox-label">
-                    Enable Gemini Socratic Mode
-                  </label>
-                  <span className="checkbox-desc">
-                    If unchecked, Socratic offline fallback is active.
-                  </span>
-                </div>
-              </div>
             </div>
 
             <div className="modal-actions">
@@ -532,8 +484,7 @@ How does this mathematical scaffold change your approach?`,
               <button 
                 onClick={() => {
                   const keyVal = (document.getElementById('gemini-key-input') as HTMLInputElement)?.value || '';
-                  const checkVal = (document.getElementById('enable-true-ai') as HTMLInputElement)?.checked || false;
-                  handleSaveApiKey(keyVal, checkVal);
+                  handleSaveApiKey(keyVal);
                 }}
                 className="btn-primary"
               >
