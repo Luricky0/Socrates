@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka:wght@400;600;700&display=swap');
 /* MathScape Premium Vanilla CSS Styling Framework */
 
 :root {
@@ -1566,4 +1567,469 @@ code {
   .step-label {
     font-size: 0.55rem;
   }
+}
+
+/* ==========================================================================
+   10. Neobrutalist Hand-Drawn Poster Theme Overrides
+   Matches the requested hand-drawn visual style and custom color palette
+   ========================================================================== */
+
+:root {
+  /* Color Palette matching the poster exactly */
+  --bg-primary: #26c6da;            /* Vibrant turquoise/teal background from the poster */
+  --bg-gradient: #26c6da;
+  
+  --brand-primary: #19a5a5;         /* Vibrant Teal */
+  --brand-primary-hover: #138787;
+  --brand-primary-light: #fffdf0;   /* Cream highlight */
+  
+  --brand-cyan: #19a5a5;            /* Solid teal matching the poster */
+  --brand-cyan-light: #fefcf2;
+  
+  --brand-teal: #0e8585;            /* Dark teal for high contrast */
+  --brand-teal-light: #f0fdfd;
+  
+  --brand-amber: #ffd54f;           /* Bright yellow highlight from the poster */
+  --brand-amber-light: #fff9db;     /* Soft yellow background */
+  
+  --brand-coral: #ff8a80;           /* Soft coral/pink secondary highlight from the poster */
+  --brand-coral-light: #fff0f1;     /* Soft coral background */
+  
+  --border-light: #000000;          /* Strong hand-drawn style black borders */
+  --border-focus: #000000;
+  --card-bg: #fffde7;               /* Off-white/soft cream card background from the poster */
+  
+  /* Hand-drawn feel typography */
+  --font-sans: 'Comic Neue', 'Fredoka', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Fredoka', sans-serif;
+  --font-mono: 'Comic Neue', Courier, monospace;
+  
+  --text-main: #000000;             /* Perfect high-contrast black text */
+  --text-muted: #2d3748;
+  --text-dark: #000000;
+  
+  /* Neobrutalist Solid Drop Shadows (No blur!) */
+  --shadow-sm: 2px 2px 0px #000000;
+  --shadow-md: 4px 4px 0px #000000;
+  --shadow-lg: 6px 6px 0px #000000;
+  --shadow-glow: none;
+  
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+}
+
+/* Base Body Styles Override */
+body {
+  background: var(--bg-primary) !important;
+  font-family: var(--font-sans) !important;
+  color: var(--text-main) !important;
+  -webkit-font-smoothing: auto !important;
+}
+
+h1, h2, h3, h4, .logo-title, .scenario-title, .scribble-title {
+  font-family: var(--font-heading) !important;
+  font-weight: 700 !important;
+  color: var(--text-dark) !important;
+}
+
+/* Floating Neobrutalist Header & Tracker Panels */
+.header-bar {
+  background: var(--card-bg) !important;
+  border: 3.5px solid #000000 !important;
+  border-radius: var(--radius-md) !important;
+  margin: 16px 16px 0 16px !important;
+  box-shadow: var(--shadow-md) !important;
+  transition: var(--transition-smooth) !important;
+}
+
+.tracker-container {
+  background: var(--card-bg) !important;
+  border: 3.5px solid #000000 !important;
+  border-radius: var(--radius-md) !important;
+  margin: 16px 16px 0 16px !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.launcher-bar {
+  padding: 12px 16px 0 16px !important;
+}
+
+.launcher-content {
+  background: var(--card-bg) !important;
+  border: 3.5px solid #000000 !important;
+  border-radius: var(--radius-md) !important;
+  padding: 8px 16px !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+/* Floating Neobrutalist Card Components */
+.glass-card {
+  background: var(--card-bg) !important;
+  border: 3.5px solid #000000 !important;
+  border-radius: var(--radius-md) !important;
+  box-shadow: var(--shadow-md) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transition: var(--transition-smooth) !important;
+}
+
+.glass-card:hover {
+  box-shadow: var(--shadow-lg) !important;
+  transform: translate(-2px, -2px) !important;
+}
+
+.scenario-card, .chat-panel-wrapper {
+  background: var(--card-bg) !important;
+  border: 3.5px solid #000000 !important;
+  border-radius: var(--radius-md) !important;
+  box-shadow: var(--shadow-md) !important;
+  overflow: hidden !important;
+}
+
+/* Input Fields */
+input[type="text"], input[type="password"], textarea, .launcher-input, .chat-input, .note-textarea {
+  border: 3px solid #000000 !important;
+  background: white !important;
+  border-radius: var(--radius-sm) !important;
+  color: #000000 !important;
+  font-family: var(--font-sans) !important;
+  font-weight: 700 !important;
+  box-shadow: inset 1px 1px 0px rgba(0,0,0,0.1) !important;
+  transition: var(--transition-fast) !important;
+}
+
+input[type="text"]:focus, input[type="password"]:focus, textarea:focus {
+  border-color: #000000 !important;
+  background: #fffdf2 !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+/* Buttons */
+.btn-primary, .launcher-btn, .btn-send {
+  background: var(--brand-amber) !important;
+  color: #000000 !important;
+  border: 3px solid #000000 !important;
+  border-radius: var(--radius-sm) !important;
+  box-shadow: var(--shadow-sm) !important;
+  font-family: var(--font-heading) !important;
+  font-weight: 700 !important;
+  transition: var(--transition-fast) !important;
+}
+
+.btn-primary:hover, .launcher-btn:hover, .btn-send:hover {
+  background: #ffe082 !important; /* Slightly brighter yellow */
+  transform: translate(-2px, -2px) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.btn-primary:active, .launcher-btn:active, .btn-send:active {
+  transform: translate(1px, 1px) !important;
+  box-shadow: 1px 1px 0px #000000 !important;
+}
+
+.btn-secondary, .modal-close-btn {
+  background: var(--brand-coral) !important;
+  color: #000000 !important;
+  border: 3px solid #000000 !important;
+  border-radius: var(--radius-sm) !important;
+  box-shadow: var(--shadow-sm) !important;
+  font-family: var(--font-heading) !important;
+  font-weight: 700 !important;
+  transition: var(--transition-fast) !important;
+}
+
+.btn-secondary:hover {
+  background: #ffa4a2 !important; /* Slightly brighter coral */
+  transform: translate(-2px, -2px) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.btn-secondary:active {
+  transform: translate(1px, 1px) !important;
+  box-shadow: 1px 1px 0px #000000 !important;
+}
+
+.btn-settings {
+  border: 3px solid #000000 !important;
+  background: var(--card-bg) !important;
+  color: #000000 !important;
+  border-radius: var(--radius-sm) !important;
+  box-shadow: var(--shadow-sm) !important;
+  width: 38px;
+  height: 38px;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: var(--transition-fast) !important;
+}
+
+.btn-settings:hover {
+  background: var(--brand-amber) !important;
+  transform: translate(-1px, -1px) !important;
+  box-shadow: 3px 3px 0px #000000 !important;
+}
+
+/* Badges styling matching the yellow index card poster elements */
+.badge-left {
+  background: var(--brand-amber) !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+  border-radius: 6px !important;
+  font-weight: 800 !important;
+  box-shadow: 1.5px 1.5px 0px #000000 !important;
+}
+
+.badge-right {
+  background: var(--brand-coral) !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+  border-radius: 6px !important;
+  font-weight: 800 !important;
+  box-shadow: 1.5px 1.5px 0px #000000 !important;
+}
+
+/* Floating Socratic progress bar level indicators */
+.level-badge {
+  background: var(--brand-coral) !important;
+  color: #000000 !important;
+  border: 1.5px solid #000000 !important;
+  box-shadow: 1px 1px 0px #000000 !important;
+  font-weight: 800 !important;
+}
+
+.percent-text {
+  color: #000000 !important;
+  font-weight: 800 !important;
+}
+
+.progress-bar-bg {
+  border: 2px solid #000000 !important;
+  background: white !important;
+  height: 8px !important;
+}
+
+.progress-bar-fill {
+  background: var(--brand-amber) !important;
+}
+
+/* Milestone nodes in Tracker */
+.step-node {
+  border: 2.5px solid #000000 !important;
+  box-shadow: 2px 2px 0px #000000 !important;
+  font-weight: 800 !important;
+  font-family: var(--font-heading) !important;
+  background: white !important;
+  color: #000000 !important;
+  width: 28px !important;
+  height: 28px !important;
+}
+
+.step-node-wrapper.completed .step-node {
+  background: var(--brand-amber) !important;
+}
+
+.step-node-wrapper.active .step-node {
+  background: var(--brand-coral) !important;
+  animation: pulseGlow 1.5s infinite !important;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { transform: scale(1); box-shadow: 2px 2px 0px #000000; }
+  50% { transform: scale(1.08); box-shadow: 3.5px 3.5px 0px #000000; }
+}
+
+.step-node-wrapper.active {
+  color: #000000 !important;
+}
+
+/* Socratic Microworld parameters box styling */
+.objective-box {
+  background: var(--brand-amber-light) !important;
+  border: 3px solid #000000 !important;
+  border-radius: var(--radius-md) !important;
+  color: #000000 !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.variables-hud {
+  background: var(--brand-coral-light) !important;
+  border: 3px solid #000000 !important;
+  border-radius: var(--radius-md) !important;
+  color: #000000 !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.variables-hud .divider-v {
+  background: #000000 !important;
+  width: 2px !important;
+}
+
+/* Preset buttons lists */
+.preset-btn {
+  border: 2px solid #000000 !important;
+  box-shadow: 2px 2px 0px #000000 !important;
+  background: white !important;
+  color: #000000 !important;
+  border-radius: var(--radius-sm) !important;
+  font-family: var(--font-heading) !important;
+  font-weight: 700 !important;
+  transition: var(--transition-fast) !important;
+}
+
+.preset-btn:hover {
+  background: var(--brand-coral-light) !important;
+  transform: translate(-1px, -1px) !important;
+  box-shadow: 3px 3px 0px #000000 !important;
+}
+
+.preset-btn.active {
+  background: var(--brand-amber) !important;
+  color: #000000 !important;
+  box-shadow: 1px 1px 0px #000000 !important;
+  transform: translate(1px, 1px) !important;
+}
+
+/* Chat bubble styling: Hand drawn comic shapes */
+.message-row.ai .message-bubble {
+  background: white !important;
+  color: #000000 !important;
+  border: 3px solid #000000 !important;
+  border-radius: var(--radius-md) !important;
+  border-top-left-radius: 0px !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.message-row.student .message-bubble {
+  background: var(--brand-amber) !important;
+  color: #000000 !important;
+  border: 3px solid #000000 !important;
+  border-radius: var(--radius-md) !important;
+  border-top-right-radius: 0px !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.chat-avatar {
+  border: 2px solid #000000 !important;
+  box-shadow: 2px 2px 0px #000000 !important;
+  font-family: var(--font-heading) !important;
+  font-weight: 800 !important;
+}
+
+.message-row.ai .chat-avatar {
+  background: var(--brand-coral) !important;
+  color: #000000 !important;
+}
+
+.message-row.student .chat-avatar {
+  background: var(--brand-amber) !important;
+  color: #000000 !important;
+}
+
+.chips-container .chip {
+  background: white !important;
+  color: #000000 !important;
+  border: 2.5px solid #000000 !important;
+  border-radius: var(--radius-sm) !important;
+  box-shadow: 2px 2px 0px #000000 !important;
+  font-family: var(--font-sans) !important;
+  font-weight: 700 !important;
+  transition: var(--transition-fast) !important;
+}
+
+.chips-container .chip:hover {
+  background: var(--brand-amber) !important;
+  transform: translate(-1px, -1px) !important;
+  box-shadow: 3px 3px 0px #000000 !important;
+}
+
+/* Chat Input Toolbar helpers */
+.btn-helper {
+  border: 2px solid #000000 !important;
+  box-shadow: 1.5px 1.5px 0px #000000 !important;
+  font-family: var(--font-heading) !important;
+  font-weight: 700 !important;
+  color: #000000 !important;
+  transition: var(--transition-fast) !important;
+}
+
+.btn-helper.hint {
+  background: var(--brand-amber) !important;
+}
+
+.btn-helper.check {
+  background: var(--brand-coral) !important;
+}
+
+.btn-helper:hover {
+  transform: translate(-1px, -1px) !important;
+  box-shadow: 2.5px 2.5px 0px #000000 !important;
+}
+
+.btn-helper:active {
+  transform: translate(0.5px, 0.5px) !important;
+  box-shadow: 0.5px 0.5px 0px #000000 !important;
+}
+
+/* Math expressions rendering */
+.math-card, code {
+  background: var(--brand-amber-light) !important;
+  border: 2.5px solid #000000 !important;
+  color: #000000 !important;
+  box-shadow: var(--shadow-sm) !important;
+  font-family: var(--font-mono) !important;
+  font-weight: 700 !important;
+}
+
+/* Modals & Notebook sliding boards overrides */
+.modal-content, .scribble-drawer {
+  background: var(--card-bg) !important;
+  border: 4.5px solid #000000 !important;
+  border-radius: var(--radius-md) !important;
+  box-shadow: var(--shadow-lg) !important;
+}
+
+.modal-header-icon, .scribble-icon {
+  background: var(--brand-amber) !important;
+  color: #000000 !important;
+  border: 3px solid #000000 !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.alert-box {
+  background: var(--brand-coral-light) !important;
+  border: 3px solid #000000 !important;
+  border-radius: var(--radius-sm) !important;
+  color: #000000 !important;
+  box-shadow: var(--shadow-sm) !important;
+  font-weight: 700 !important;
+}
+
+.scribble-tab-btn {
+  font-family: var(--font-heading) !important;
+  font-weight: 800 !important;
+  color: var(--text-muted) !important;
+  border-bottom: 3.5px solid transparent !important;
+}
+
+.scribble-tab-btn.active {
+  color: #000000 !important;
+  border-bottom-color: #000000 !important;
+  background: rgba(0, 0, 0, 0.02) !important;
+}
+
+.note-form {
+  border: 3px solid #000000 !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.logo-img {
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 50% !important;
+  border: 3px solid #000000 !important;
+  box-shadow: 2px 2px 0px #000000 !important;
+  object-fit: cover !important;
+  background: white !important;
+  display: block !important;
 }

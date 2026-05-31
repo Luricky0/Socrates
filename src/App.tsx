@@ -264,13 +264,11 @@ How does this mathematical scaffold change your approach?`,
         
         {/* Brand Logo */}
         <div className="header-left">
-          <div className="logo-container">
-            <div className="logo-icon">
-              <Sparkles size={16} />
-            </div>
+          <div className="logo-container" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <img src="/socrates-logo.png" alt="Socrates Logo" className="logo-img" />
             <div>
-              <h1 className="logo-title">MathScape</h1>
-              <p className="logo-sub">SOCRATES MATH COACH</p>
+              <h1 className="logo-title" style={{ fontSize: '1.4rem', textTransform: 'uppercase', letterSpacing: '-0.02em' }}>Socrates</h1>
+              <p className="logo-sub" style={{ marginTop: '0px' }}>AI SOCRATIC COACH</p>
             </div>
           </div>
         </div>
@@ -521,14 +519,14 @@ How does this mathematical scaffold change your approach?`,
                 <Sparkles size={18} />
               </div>
               <div>
-                <h3 className="scribble-title" style={{ fontSize: '0.95rem' }}>Welcome to MathScape!</h3>
+                <h3 className="scribble-title" style={{ fontSize: '0.95rem' }}>Welcome to Socrates!</h3>
                 <p className="scribble-subtitle">LEARNER USER INTERVIEW GUIDE</p>
               </div>
             </div>
 
             <div className="modal-body">
               <p>
-                MathScape is an educational microworld platform. Here, you learn math by exploring scenarios <strong>conceptually in words</strong> with your Socratic math coach, <strong>Socrates</strong>.
+                Socrates is an educational microworld platform. Here, you learn math by exploring scenarios <strong>conceptually in words</strong> with your Socratic math coach, <strong>Socrates</strong>.
               </p>
               
               <div>
